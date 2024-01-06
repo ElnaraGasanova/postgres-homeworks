@@ -17,3 +17,17 @@ ALTER TABLE order_details
 DROP CONSTRAINT fk_order_details_products
 DELETE FROM products
 WHERE discontinued = 1
+
+-- ВАРИАНТ 2 от наставника.
+-- Сначала удаляем ограничение:
+ALTER TABLE order_details
+DROP CONSTRAINT fk_orderdetails_products;
+
+-- Удаляем продукты, снятые с продажи:
+DELETE FROM products
+WHERE discontinued = 1;
+
+-- Возвращаем ограничение:
+ALTER TABLE order_details
+ADD CONSTRAINT fk_orderdetails_products FOREIGN KEY (product_id)
+REFERENCES products(product_id);
